@@ -1,0 +1,22 @@
+
+services:
+  - type: web
+    name: ecommerce-backend
+    env: node
+    plan: free
+    buildCommand: cd backend && npm install
+    startCommand: node backend/server.js
+    envVars:
+      - key: MONGO_URI
+        value: your_mongo_connection_string
+      - key: JWT_SECRET
+        value: your_jwt_secret
+
+  - type: web
+    name: ecommerce-frontend
+    env: static
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: frontend/dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://ecommerce-backend.onrender.com
